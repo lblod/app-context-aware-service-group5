@@ -15,6 +15,8 @@ services:
       - ./config/dispatcher:/config
   database:
     image: redpencil/virtuoso:1.2.0-rc.1
+    ports:
+      - 8890:8890
     environment:
       SPARQL_UPDATE: "true"
       DEFAULT_GRAPH: "http://mu.semte.ch/application"
@@ -23,12 +25,8 @@ services:
       - ./config/virtuoso/virtuoso.ini:/data/virtuoso.ini
   ca-service-frontend:
     image: context-aware-frontend:latest
-    ports:
-      - 81:3000
   ca-service:
     image: context-aware-service:latest
-    ports:
-      - 90:80
   resource:
     image: semtech/mu-cl-resources:1.25.0
     links:
